@@ -8,7 +8,7 @@ function ItensList() {
 
   useEffect(() => {
     // Chamada o BFF local
-    fetch('http://localhost:3000/aggregated-data')
+    fetch('http://localhost:3000/items/aggregated')
       .then((response) => response.json())
       .then((data) => {
         // No nosso BFF, definimos que os itens vêm dentro de 'equipamentos'

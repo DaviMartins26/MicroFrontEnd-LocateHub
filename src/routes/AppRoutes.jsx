@@ -7,6 +7,7 @@ import CadastroUsuario from '../pages/CadastroUsuario';
 import UsuariosList from '../pages/UsuariosList';
 import ItensAdmin from '../pages/ItensAdmin';
 import EditarItem from '../pages/EditarItem';
+import EditarUsuario from '../pages/EditarUsuario';
 
 function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ function AppRoutes() {
         <Route path="/usuarios" element={<UsuariosList />} />
         <Route path="/admin-itens" element={<ItensAdmin />} />
         <Route path="/editar-item/:id" element={<EditarItem />} />
+        <Route path="/editar-usuario/:id" element={<EditarUsuario/>}/>
       </Routes>
     </BrowserRouter>
   );
