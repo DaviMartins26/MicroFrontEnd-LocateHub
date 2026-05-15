@@ -8,6 +8,7 @@ import UsuariosList from '../pages/UsuariosList';
 import ItensAdmin from '../pages/ItensAdmin';
 import EditarItem from '../pages/EditarItem';
 import EditarUsuario from '../pages/EditarUsuario';
+import RelatorioGeral from '../pages/RelatotorioGeral';
 
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
         <Route path="/admin-itens" element={<ItensAdmin />} />
         <Route path="/editar-item/:id" element={<EditarItem />} />
         <Route path="/editar-usuario/:id" element={<EditarUsuario/>}/>
+        <Route path="/relatoio-geral" element={<RelatorioGeral/>}/>
       </Routes>
     </BrowserRouter>
   );

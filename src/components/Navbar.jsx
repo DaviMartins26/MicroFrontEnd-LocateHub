@@ -8,6 +8,8 @@ function Navbar() {
       <Link to="/cadastro-usuario">Cadastrar Usuário</Link>
       <Link to="/usuarios">Usuários</Link>
       <Link to="/admin-itens">Admin Itens</Link>
+      <Link to="/relatoio-geral">Mostrar Agregração</Link>
+
     </nav>
   );
 }

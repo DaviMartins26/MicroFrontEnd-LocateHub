@@ -8,10 +8,10 @@ function ItensAdmin() {
 
   // 1. Carrega os itens ao entrar na página
   useEffect(() => {
-    fetch('http://localhost:3000/items/aggregated')
+    fetch('http://localhost:3000/items/list')
       .then(res => res.json())
       .then(data => {
-        setItens(data.equipamentos || []);
+        setItens(data || []);
         setLoading(false);
       })
       .catch(err => {

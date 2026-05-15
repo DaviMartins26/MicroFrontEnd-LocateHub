@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react'; // Adicionado para gerenciar dados
+import { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
-// import { itensMock } from '../mocks/itensMock'; 
 
 function ItensList() {
-  const [itens, setItens] = useState([]); // Estado para os itens
-  const [loading, setLoading] = useState(true); // Estado de carregamento
+  const [itens, setItens] = useState([]); 
+  const [loading, setLoading] = useState(true);
+  
+  // NOVO: Estado para guardar o resultado do cálculo de cada item separadamente
+  const [calculos, setCalculos] = useState({}); 
 
   useEffect(() => {
-    // Chamada o BFF local
-    fetch('http://localhost:3000/items/aggregated')
+    fetch('http://localhost:3000/items/list')
       .then((response) => response.json())
       .then((data) => {
-        // No nosso BFF, definimos que os itens vêm dentro de 'equipamentos'
-        // Se o seu BFF retornar outro nome, ajuste aqui: data.seu_nome
-        setItens(data.equipamentos || []); 
+        setItens(data || []); 
         setLoading(false);
       })
       .catch((error) => {
@@ -21,6 +20,35 @@ function ItensList() {
         setLoading(false);
       });
   }, []);
+
+  // FUNÇÃO NOVA: Envia os dados para o BFF calcular na Azure Function
+  const handleSimular = async (itemId, precoDia, dias) => {
+    if (!dias || dias <= 0) {
+      alert("Por favor, insira a quantidade de dias.");
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/items/calcular-aluguel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ precoDia, dias: parseInt(dias) })
+      });
+
+      if (!response.ok) throw new Error("Erro no cálculo");
+
+      const data = await response.json();
+
+      // Guardamos o resultado no estado usando o ID do item como chave
+      setCalculos((prev) => ({
+        ...prev,
+        [itemId]: data // Aqui salvamos o objeto todo que a Function retorna
+      }));
+    } catch (error) {
+      console.error("Erro ao simular:", error);
+      alert("Erro ao calcular orçamento. Verifique se o BFF e a Function estão ligados.");
+    }
+  };
 
   return (
     <Layout>
@@ -33,16 +61,55 @@ function ItensList() {
           {itens.map((item) => (
             <div
               key={item.id}
-              style={{ border: '1px solid #ccc', padding: '10px', width: '220px' }}
+              style={{ 
+                border: '1px solid #ccc', 
+                padding: '15px', 
+                width: '240px', 
+                borderRadius: '8px',
+                backgroundColor: '#f9f9f9' 
+              }}
             >
               <img
-                src={item.urlImagem || ''}
-                style={{ width: '100%' }}
+                src={item.urlImagem || 'https://via.placeholder.com/150'}
+                alt={item.nome}
+                style={{ width: '100%', borderRadius: '4px' }}
               />
               <h3>{item.nome}</h3>
-              {/* Ajuste os campos abaixo de acordo com o que você colocou no seu BFF */}
-              <p>Categoria: {item.categoria || 'Erro Categoria'}</p>
-              <p>R$ {item.valorAluguelDia || item.valor_diaria}/dia</p>
+              <p>Categoria: {item.categoria || 'Geral'}</p>
+              <p><strong>R$ {item.valorAluguelDia || item.valor_diaria}/dia</strong></p>
+
+              {/* --- ÁREA DA SIMULAÇÃO (AZURE FUNCTION) --- */}
+              <div style={{ marginTop: '15px', borderTop: '1px dashed #bbb', paddingTop: '10px' }}>
+                <label style={{ fontSize: '12px' }}>Simular dias:</label>
+                <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
+                  <input
+                    type="number"
+                    min="1"
+                    placeholder="Dias"
+                    id={`input-dias-${item.id}`}
+                    style={{ width: '60px', padding: '5px' }}
+                  />
+                  <button 
+                    onClick={() => {
+                      const dias = document.getElementById(`input-dias-${item.id}`).value;
+                      const preco = item.valorAluguelDia || item.valor_diaria;
+                      handleSimular(item.id, preco, dias);
+                    }}
+                    style={{ cursor: 'pointer', padding: '5px 10px' }}
+                  >
+                    Calcular
+                  </button>
+                </div>
+
+                {/* Exibe o resultado se ele existir para este item */}
+                {calculos[item.id] && (
+                  <div style={{ marginTop: '10px', color: '#27ae60', fontSize: '14px' }}>
+                    <p style={{ margin: 0 }}><strong>Total: R$ {calculos[item.id].valorFinal}</strong></p>
+                    <small>{calculos[item.id].mensagem}</small>
+                  </div>
+                )}
+              </div>
+              {/* ------------------------------------------ */}
             </div>
           ))}
         </div>
