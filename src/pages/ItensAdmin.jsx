@@ -8,8 +8,7 @@ function ItensAdmin() {
 
   // 1. Carrega os itens ao entrar na página
   useEffect(() => {
-    fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
-/items/list')
+    fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io/items/list')
       .then(res => res.json())
       .then(data => {
         setItens(data || []);
@@ -30,8 +29,7 @@ function ItensAdmin() {
   const handleExcluir = async (id) => {
     if (window.confirm("Tem certeza que deseja excluir este item?")) {
       try {
-        const response = await fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
-/items/${id}`, {
+        const response = await fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io/items/${id}`, {
           method: 'DELETE',
         });
 
