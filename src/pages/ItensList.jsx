@@ -9,8 +9,7 @@ function ItensList() {
   const [calculos, setCalculos] = useState({}); 
 
   useEffect(() => {
-    fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
-/items/list')
+    fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io/items/list')
       .then((response) => response.json())
       .then((data) => {
         setItens(data || []); 
@@ -30,8 +29,7 @@ function ItensList() {
     }
 
     try {
-      const response = await fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
-/items/calcular-aluguel', {
+      const response = await fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io/items/calcular-aluguel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ precoDia, dias: parseInt(dias) })
@@ -72,7 +70,6 @@ function ItensList() {
               }}
             >
               <img
-                src={item.urlImagem || 'https://via.placeholder.com/150'}
                 alt={item.nome}
                 style={{ width: '100%', borderRadius: '4px' }}
               />
