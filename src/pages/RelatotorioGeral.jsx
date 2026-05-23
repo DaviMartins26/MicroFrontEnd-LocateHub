@@ -5,7 +5,8 @@ function RelatorioGeral() {
   const [dados, setDados] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/items/aggregated')
+    fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/items/aggregated')
       .then(res => res.json())
       .then(setDados)
       .catch(console.error);

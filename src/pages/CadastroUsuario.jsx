@@ -17,7 +17,8 @@ function CadastroUsuario() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/users', {
+      const response = await fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

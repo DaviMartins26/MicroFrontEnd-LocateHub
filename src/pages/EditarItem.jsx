@@ -12,7 +12,8 @@ function EditarItem() {
 
   // 1. Carrega os dados atuais do item ao abrir a página
     useEffect(() => {
-    fetch(`http://localhost:3000/items/${id}`)
+    fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/items/${id}`)
         .then(res => {
         if (!res.ok) throw new Error("Item não encontrado no servidor");
         return res.json();
@@ -33,7 +34,8 @@ function EditarItem() {
             valorAluguelDia: Number(formData.valorAluguelDia) // Garante que é número
         }; 
         
-        const response = await fetch(`http://localhost:3000/items/${id}`, {
+        const response = await fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/items/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(itemParaSalvar)

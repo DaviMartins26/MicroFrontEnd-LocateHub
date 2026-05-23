@@ -10,7 +10,8 @@ function UsuariosList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/users');
+        const response = await fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/users');
         const data = await response.json();
         setUsuarios(data);
       } catch (error) {
@@ -28,7 +29,8 @@ function UsuariosList() {
   const handleExcluir = async (id) => {
     if (window.confirm("Deseja mesmo excluir?")) {
       try {
-        const response = await fetch(`http://localhost:3000/users/${id}`, {
+        const response = await fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/users/${id}`, {
           method: 'DELETE',
         });
 

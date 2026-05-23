@@ -8,7 +8,8 @@ function ItensAdmin() {
 
   // 1. Carrega os itens ao entrar na página
   useEffect(() => {
-    fetch('http://localhost:3000/items/list')
+    fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/items/list')
       .then(res => res.json())
       .then(data => {
         setItens(data || []);
@@ -23,14 +24,14 @@ function ItensAdmin() {
   const navigate = useNavigate();
 
   const handleEditar = (id) => {
-    // Isso vai mudar a URL para algo como: localhost:5173/editar-item/6604...
     navigate(`/editar-item/${id}`); 
   };
 
   const handleExcluir = async (id) => {
     if (window.confirm("Tem certeza que deseja excluir este item?")) {
       try {
-        const response = await fetch(`http://localhost:3000/items/${id}`, {
+        const response = await fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/items/${id}`, {
           method: 'DELETE',
         });
 

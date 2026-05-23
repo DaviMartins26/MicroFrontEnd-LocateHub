@@ -15,7 +15,8 @@ function EditarUsuario() {
   useEffect(() => {
     const carregarUsuario = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/users/${id}`);
+        const response = await fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/users/${id}`);
         const data = await response.json();
         setFormData({
           nome: data.nome,
@@ -36,7 +37,8 @@ function EditarUsuario() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-        const response = await fetch(`http://localhost:3000/users/${id}`, {
+        const response = await fetch(`https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/users/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)

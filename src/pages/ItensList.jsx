@@ -9,7 +9,8 @@ function ItensList() {
   const [calculos, setCalculos] = useState({}); 
 
   useEffect(() => {
-    fetch('http://localhost:3000/items/list')
+    fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/items/list')
       .then((response) => response.json())
       .then((data) => {
         setItens(data || []); 
@@ -29,7 +30,8 @@ function ItensList() {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/items/calcular-aluguel', {
+      const response = await fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
+/items/calcular-aluguel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ precoDia, dias: parseInt(dias) })
