@@ -16,8 +16,7 @@ function CadastroItem() {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io
-/items', {
+      const response = await fetch('https://locatehub-bff.greenmoss-1512f455.eastus2.azurecontainerapps.io/items', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData) // Envia o estado do formulário como JSON
