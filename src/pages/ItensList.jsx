@@ -70,6 +70,7 @@ function ItensList() {
               }}
             >
               <img
+                src={item.urlImagem} // Campo do NoSQL
                 alt={item.nome}
                 style={{ width: '100%', borderRadius: '4px' }}
               />
